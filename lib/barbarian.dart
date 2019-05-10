@@ -29,7 +29,8 @@ class Barbarian {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static dynamic read(String key, {CustomDecode customDecode, dynamic defaultValue}) {
+  static dynamic read(String key,
+      {CustomDecode customDecode, dynamic defaultValue}) {
     String first = _prefs.getString(key);
     String type = first.split('__type__')[0];
     String value = first.split('__type__')[1];
