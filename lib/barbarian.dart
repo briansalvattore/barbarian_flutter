@@ -34,6 +34,9 @@ class Barbarian {
   static dynamic read(String key,
       {CustomDecode customDecode, dynamic defaultValue}) {
     String first = _prefs.getString(key);
+
+    if (first == null) return null;
+
     String type = first.split('__type__')[0];
     String value = first.split('__type__')[1];
 

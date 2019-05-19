@@ -110,4 +110,12 @@ void main() {
     print('listOfItems $listOfItems');
     print('mapOfItems $mapOfItems');
   });
+  
+  test('validate if null', () async {
+    SharedPreferences.setMockInitialValues({});
+    await Barbarian.init();
+
+    var ifNulled = Barbarian.read('nulleable');
+    print('ifNulled $ifNulled');
+  });
 }
