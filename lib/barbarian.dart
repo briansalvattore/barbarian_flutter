@@ -31,8 +31,11 @@ class Barbarian {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static dynamic read(String key,
-      {CustomDecode customDecode, dynamic defaultValue}) {
+  static dynamic read(
+    String key, {
+    CustomDecode customDecode,
+    dynamic defaultValue,
+  }) {
     String first = _prefs.getString(key);
 
     if (first == null) return null;
@@ -41,6 +44,8 @@ class Barbarian {
     String value = first.split('__type__')[1];
 
     switch (type) {
+      case 'Null':
+        return null;
       case 'String':
         return value;
       case 'int':
@@ -60,13 +65,17 @@ class Barbarian {
       case int:
       case double:
       case bool:
-        _prefs.setString(key, '${value.runtimeType}__type__$value');
+        _prefs.setString(
+          key,
+          '${value.runtimeType}__type__$value',
+        );
         break;
-
       default:
         _prefs.setString(
-            key, '${value.runtimeType}__type__${json.encode(value)}');
-        return;
+          key,
+          '${value.runtimeType}__type__${json.encode(value)}',
+        );
+        break;
     }
   }
 
