@@ -40,6 +40,17 @@ class Item {
 }
 
 void main() {
+  test('nullable test', () async {
+    SharedPreferences.setMockInitialValues({});
+    await Barbarian.init();
+
+    Barbarian.write('nullable', null);
+
+    String nullable = Barbarian.read('nullable');
+
+    print('nullable $nullable');
+  });
+
   test('simple barbarian', () async {
     SharedPreferences.setMockInitialValues({});
     await Barbarian.init();
@@ -110,7 +121,7 @@ void main() {
     print('listOfItems $listOfItems');
     print('mapOfItems $mapOfItems');
   });
-  
+
   test('validate if null', () async {
     SharedPreferences.setMockInitialValues({});
     await Barbarian.init();

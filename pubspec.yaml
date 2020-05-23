@@ -1,26 +1,21 @@
 name: barbarian
 description: Barbarian is a fast and simple way to save data in NoSQL. It is a simple wrap of Shared preferences.
-version: 0.2.26+4
+version: 0.2.26+6
 homepage: https://github.com/briansalvattore/barbarian_flutter
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
-
-#flutter:
-#  plugin:
-#    platforms:
-#      android:
-#        pluginClass: BarbarianPlugin
-#      ios:
-#        pluginClass: BarbarianPlugin
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  #flutter:
-  #  sdk: flutter
-  synchronized: ^2.1.0
-  shared_preferences: ^0.5.2
+  flutter:
+    sdk: flutter
+
+  synchronized: ^2.2.0
+  shared_preferences: ^0.5.7
+  shared_preferences_web: ^0.1.2
 
 dev_dependencies:
-  #test: 
   flutter_test:
     sdk: flutter
+    
+  test: 1.14.2
