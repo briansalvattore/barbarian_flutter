@@ -13,8 +13,6 @@ dependencies:
   barbarian:
     path : ../
 
-  cupertino_icons: ^0.1.2
-
 flutter:
 
   uses-material-design: true

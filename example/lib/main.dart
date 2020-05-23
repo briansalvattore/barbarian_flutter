@@ -1,63 +1,73 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:barbarian/barbarian.dart';
+import 'package:flutter/material.dart';
+import 'person.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(BarbarianApp());
+}
 
-class MyApp extends StatelessWidget {
+class BarbarianApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+      title: 'Barbarian Demo',
+      theme: ThemeData.dark(),
+      home: BarbarianPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class BarbarianPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BarbarianPageState createState() => _BarbarianPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  String _name = '';
+class _BarbarianPageState extends State<BarbarianPage> {
+  Person _brian = Person()
+    ..name = 'Brian'
+    ..last = 'Castillo';
 
   @override
   void initState() {
-    Future.sync(() async {
-      await Barbarian.init();
-      Barbarian.write('name', 'Brian Salvattore');
-    });
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Barbarian.init();
+
+      await Future.delayed(Duration(seconds: 2));
+
+      _brian..name = 'Frank';
+      _brian.save();
+
+      await Future.delayed(Duration(seconds: 2));
+
+      _brian..name = 'Pierre';
+      _brian.save();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Barbarian Example'),
+      appBar: AppBar(
+        title: Text('Barbarian'),
+      ),
+      body: SizedBox.expand(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ValueListenableBuilder<Person>(
+              valueListenable: _brian.listen(),
+              builder: (context, value, _) {
+                print('value $value');
+                return Text('Hi ${value?.name ?? ''}');
+              },
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Nombre: $_name',
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            setState(() {
-              _name = Barbarian.read('name');
-            });
-          },
-          icon: Icon(Icons.font_download),
-          label: Text("Nombre"),
-        ));
+      ),
+    );
   }
 }
