@@ -5,24 +5,16 @@ import 'package:synchronized/synchronized.dart';
 class BarbarianSharedPreferences extends BarbarianBase {
   static BarbarianSharedPreferences _singleton;
 
-  factory BarbarianSharedPreferences() {
-    if (_singleton != null) {
-      return _singleton;
-    }
-    _singleton = BarbarianSharedPreferences._();
-    return _singleton;
-  }
-
   BarbarianSharedPreferences._();
 
   static SharedPreferences _prefs;
-  Lock _lock = Lock();
+  static Lock _lock = Lock();
 
-  Future<BarbarianSharedPreferences> init() async {
+  static Future<BarbarianSharedPreferences> init() async {
     if (_singleton == null) {
       await _lock.synchronized(() async {
         if (_singleton == null) {
-          var singleton = BarbarianSharedPreferences();
+          var singleton = BarbarianSharedPreferences._();
           await singleton._init();
           _singleton = singleton;
         }
