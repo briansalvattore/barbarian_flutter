@@ -1,33 +1,27 @@
 import 'package:barbarian/src/barbarian_base.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:synchronized/synchronized.dart';
 
 class BarbarianSharedPreferences extends BarbarianBase {
-  static BarbarianSharedPreferences _singleton;
+  static Future<BarbarianSharedPreferences> _futureIntance;
 
   BarbarianSharedPreferences._();
 
   static SharedPreferences _prefs;
-  static Lock _lock = Lock();
 
   static Future<BarbarianSharedPreferences> init() async {
-    if (_singleton == null) {
-      await _lock.synchronized(() async {
-        if (_singleton == null) {
-          var singleton = BarbarianSharedPreferences._();
-          await singleton._init();
-          _singleton = singleton;
-        }
-      });
+    if (_futureIntance == null) {
+      _futureIntance = _init();
     }
-    return _singleton;
+    return _futureIntance;
+  }
+
+  static Future<BarbarianSharedPreferences> _init() async {
+    final singleton = BarbarianSharedPreferences._();
+    _prefs = await SharedPreferences.getInstance();
+    return singleton;
   }
 
   //  static Barbarian get instance => Barbarian._();
-
-  Future _init() async {
-    _prefs = await SharedPreferences.getInstance();
-  }
 
   @override
   String getString(String key) => _prefs.getString(key);

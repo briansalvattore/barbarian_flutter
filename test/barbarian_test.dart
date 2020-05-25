@@ -42,6 +42,20 @@ class Item {
 void main() {
   test('nullable test', () async {
     SharedPreferences.setMockInitialValues({});
+    final List<BarbarianBase> barbarians = await Future.wait([
+      Barbarian.init(),
+      Barbarian.init(),
+      Barbarian.init(),
+      Barbarian.init(),
+    ]);
+
+    final _barbarian = await Barbarian.init();
+    barbarians.forEach((b) {
+      expect(b, equals(_barbarian));
+    });
+  });
+  test('nullable test', () async {
+    SharedPreferences.setMockInitialValues({});
     final barbarian = await Barbarian.init();
     expect(barbarian, isNotNull);
 
