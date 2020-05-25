@@ -11,16 +11,16 @@ part 'pale_ale.dart';
 
 typedef CustomDecoder = dynamic Function(dynamic output);
 
-class Barbarian {
-  static Barbarian _singleton;
-  static SharedPreferences _prefs;
-  static Lock _lock = Lock();
+class BarbarianSharedPreference {
+  BarbarianSharedPreference _singleton;
+  SharedPreferences _prefs;
+  Lock _lock = Lock();
 
-  static Future<Barbarian> init() async {
+  Future<BarbarianSharedPreference> init() async {
     if (_singleton == null) {
       await _lock.synchronized(() async {
         if (_singleton == null) {
-          var singleton = Barbarian._();
+          var singleton = BarbarianSharedPreference._();
           await singleton._init();
           _singleton = singleton;
         }
@@ -29,15 +29,15 @@ class Barbarian {
     return _singleton;
   }
 
-  Barbarian._();
+  BarbarianSharedPreference._();
 
-//  static Barbarian get instance => Barbarian._();
+  //  static Barbarian get instance => Barbarian._();
 
   Future _init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static dynamic read(
+  dynamic read(
     String key, {
     CustomDecoder customDecoder,
     dynamic defaultValue,
@@ -71,7 +71,7 @@ class Barbarian {
     }
   }
 
-  static void write(String key, dynamic value) {
+  void write(String key, dynamic value) {
     switch (value.runtimeType) {
       case String:
       case int:
@@ -91,14 +91,13 @@ class Barbarian {
     }
   }
 
-  static void delete(String key) => _prefs.remove(key);
+  void delete(String key) => _prefs.remove(key);
 
-  static List<String> getAllKeys() =>
-      _prefs.getKeys().map((key) => key).toList();
+  List<String> getAllKeys() => _prefs.getKeys().map((key) => key).toList();
 
-  static void destroy() => _prefs.clear();
+  void destroy() => _prefs.clear();
 
-  static bool contains(String key) => _prefs.containsKey(key);
+  bool contains(String key) => _prefs.containsKey(key);
 
   //static Map<String, ValueNotifier<Lupulus>> _ipaListeners = Map();
   //
@@ -121,3 +120,5 @@ class Barbarian {
   //  _ipaListeners.clear();
   //}
 }
+
+final Barbarian = BarbarianSharedPreference._();
