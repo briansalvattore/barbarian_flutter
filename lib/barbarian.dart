@@ -1,9 +1,14 @@
 // Copyright (c) 2020, Grinch Code. All rights reserved. Use of this source code
 // is governed by the MIT license that can be found in the LICENSE file.
+import 'src/barbarian_base.dart';
 import 'src/barbarian_shared_preferences.dart';
 export 'src/barbarian_base.dart';
 
-final Barbarian = BarbarianSharedPreferences();
+class Barbarian {
+  static Future<BarbarianBase> init() {
+    return BarbarianSharedPreferences.init();
+  }
+}
 
 //static Map<String, ValueNotifier<Lupulus>> _ipaListeners = Map();
 //
