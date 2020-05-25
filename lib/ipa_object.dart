@@ -3,7 +3,6 @@ import 'package:barbarian/ipa.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class IpaObject<T> extends Ipa<T> {
-
   /*final Map<String, ValueNotifier<T>> _listeners = Map();
 
 
@@ -11,7 +10,7 @@ abstract class IpaObject<T> extends Ipa<T> {
     Barbarian.write(key, this);
     _listeners[]
   }*/
-  void save() => Barbarian.writeWithNotify(key, this);
+  //void save() => Barbarian.writeWithNotify(key, this);
 
-  T get() => Barbarian.read(key, customDecode: (o) => fromMap(o));
+  T get() => Barbarian.read(key, customDecoder: (o) => fromMap(o));
 }

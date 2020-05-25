@@ -1,8 +1,7 @@
-part of 'barbarian.dart';
-
+//part of 'barbarian.dart';
+/*
 extension PaleAle on Barbarian {
-
-  /*ValueNotifier<T> listenIpa<T extends Lupulus>(String key, [T defaultValue]) {
+  ValueNotifier<T> listenIpa<T extends Lupulus>(String key, [T defaultValue]) {
     if (!_ipaListeners.containsKey(key)) {
       _ipaListeners[key] = ValueNotifier<T>(defaultValue);
     }
@@ -17,5 +16,5 @@ extension PaleAle on Barbarian {
   static void dispose() {
     _ipaListeners.forEach((_, v) => v.dispose());
     _ipaListeners.clear();
-  }*/
-}
+  }
+}*/

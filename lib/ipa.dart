@@ -26,7 +26,7 @@ abstract class Lupulus<T> {
   @override
   String toString() => toJson().toString();
 
-  ValueListenable<T> listen<T extends Lupulus>([T defaultValue]) {
-    return Barbarian.listenIpa<T>(key, defaultValue);
-  }
+  //ValueListenable<T> listen<T extends Lupulus>([T defaultValue]) {
+  //  return Barbarian.listenIpa<T>(key, defaultValue);
+  //}
 }
