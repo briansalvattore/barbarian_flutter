@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 typedef CustomDecoder = dynamic Function(dynamic output);
 
 abstract class BarbarianBase {
-  Future<BarbarianBase> init();
+  //Future<BarbarianBase> init({bool force});
 
   @protected
   String getString(String key);
