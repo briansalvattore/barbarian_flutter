@@ -42,49 +42,50 @@ class Item {
 void main() {
   test('nullable test', () async {
     SharedPreferences.setMockInitialValues({});
-    await Barbarian.init();
+    final barbarian = await Barbarian.init();
+    expect(barbarian, isNotNull);
 
-    Barbarian.write('nullable', null);
+    barbarian.write('nullable', null);
 
-    String nullable = Barbarian.read('nullable');
+    String nullable = barbarian.read('nullable');
 
     print('nullable $nullable');
   });
 
   test('simple barbarian', () async {
     SharedPreferences.setMockInitialValues({});
-    await Barbarian.init();
+    final barbarian = await Barbarian.init();
 
-    Barbarian.write('cadena', 'cadena');
-    Barbarian.write('boleano', true);
-    Barbarian.write('entero', 7);
-    Barbarian.write('numero', 3.8);
+    barbarian.write('cadena', 'cadena');
+    barbarian.write('boleano', true);
+    barbarian.write('entero', 7);
+    barbarian.write('numero', 3.8);
 
-    String cadena = Barbarian.read('cadena');
-    bool boleano = Barbarian.read('boleano');
-    int entero = Barbarian.read('entero');
-    double numero = Barbarian.read('numero');
+    String cadena = barbarian.read('cadena');
+    bool boleano = barbarian.read('boleano');
+    int entero = barbarian.read('entero');
+    double numero = barbarian.read('numero');
 
     print('cadena $cadena');
     print('boleano $boleano');
     print('entero $entero');
     print('numero $numero');
 
-    print('all keys => ${Barbarian.getAllKeys()}');
+    print('all keys => ${barbarian.getAllKeys()}');
   });
 
   test('middle barbarian', () async {
     SharedPreferences.setMockInitialValues({});
-    await Barbarian.init();
+    final barbarian = await Barbarian.init();
 
-    Barbarian.write('listOfString', ['Strdf', 'asdasd']);
-    Barbarian.write('mapOfString', {'first': 'hola', 'second': 'mundo'});
+    barbarian.write('listOfString', ['Strdf', 'asdasd']);
+    barbarian.write('mapOfString', {'first': 'hola', 'second': 'mundo'});
 
-    List<String> listOfString = Barbarian.read('listOfString',
-        customDecode: (output) => List<String>.from(output));
+    List<String> listOfString = barbarian.read('listOfString',
+        customDecoder: (output) => List<String>.from(output));
 
-    Map<String, String> mapOfString = Barbarian.read('mapOfString',
-        customDecode: (output) => Map<String, String>.from(output));
+    Map<String, String> mapOfString = barbarian.read('mapOfString',
+        customDecoder: (output) => Map<String, String>.from(output));
 
     print('listOfString $listOfString');
     print('mapOfString $mapOfString');
@@ -92,7 +93,7 @@ void main() {
 
   test('advance barbarian', () async {
     SharedPreferences.setMockInitialValues({});
-    await Barbarian.init();
+    final barbarian = await Barbarian.init();
 
     Item item = Item(
         id: 1,
@@ -102,19 +103,19 @@ void main() {
         stock: 10,
         active: true);
 
-    Barbarian.write('item', item);
-    Barbarian.write('listOfItems', [item, item]);
-    Barbarian.write('mapOfItems', {'first': item, 'second': item});
+    barbarian.write('item', item);
+    barbarian.write('listOfItems', [item, item]);
+    barbarian.write('mapOfItems', {'first': item, 'second': item});
 
     Item newItem =
-        Barbarian.read('item', customDecode: (output) => Item.fromMap(output));
+        barbarian.read('item', customDecoder: (output) => Item.fromMap(output));
 
-    List<Item> listOfItems = Barbarian.read('listOfItems',
-        customDecode: (output) =>
+    List<Item> listOfItems = barbarian.read('listOfItems',
+        customDecoder: (output) =>
             output.map<Item>((item) => Item.fromMap(item)).toList());
 
-    Map<String, Item> mapOfItems = Barbarian.read('mapOfItems',
-        customDecode: (output) => output.map<String, Item>(
+    Map<String, Item> mapOfItems = barbarian.read('mapOfItems',
+        customDecoder: (output) => output.map<String, Item>(
             (key, value) => MapEntry<String, Item>(key, Item.fromMap(value))));
 
     print('newItem $newItem');
@@ -124,9 +125,9 @@ void main() {
 
   test('validate if null', () async {
     SharedPreferences.setMockInitialValues({});
-    await Barbarian.init();
+    final barbarian = await Barbarian.init();
 
-    var ifNulled = Barbarian.read('nulleable');
+    var ifNulled = barbarian.read('nulleable');
     print('ifNulled $ifNulled');
   });
 }
