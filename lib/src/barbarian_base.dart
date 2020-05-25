@@ -79,5 +79,5 @@ abstract class BarbarianBase {
     'Use `dispose` instead. '
     'This feature was deprecated after v0.3.0.',
   )
-  void destroy();
+  void destroy() => dispose();
 }

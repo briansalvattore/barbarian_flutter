@@ -42,7 +42,4 @@ class BarbarianSharedPreferences extends BarbarianBase {
 
   @override
   void dispose() => _prefs.clear();
-
-  @deprecated
-  void destroy() => dispose();
 }
