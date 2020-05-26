@@ -1,5 +1,7 @@
 import 'package:barbarian/barbarian.dart';
+import 'package:barbarian_example/children.dart';
 import 'package:flutter/material.dart';
+
 import 'person.dart';
 
 void main() {
@@ -7,7 +9,6 @@ void main() {
 }
 
 class BarbarianApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,6 +29,8 @@ class _BarbarianPageState extends State<BarbarianPage> {
     ..name = 'Brian'
     ..last = 'Castillo';
 
+  Children children = Children();
+
   @override
   void initState() {
     super.initState();
@@ -35,15 +38,29 @@ class _BarbarianPageState extends State<BarbarianPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Barbarian.init();
 
+      children.empty();
+      children.addChild('Brian', 'Castillo');
+
+      await Future.delayed(Duration(seconds: 2));
+
+      _brian..name = 'Carlos';
+      _brian.save();
+
+      children.addChild('Carlos', 'Ramirez');
+
       await Future.delayed(Duration(seconds: 2));
 
       _brian..name = 'Frank';
       _brian.save();
 
+      children.addChild('Frank', 'Moreno');
+
       await Future.delayed(Duration(seconds: 2));
 
       _brian..name = 'Pierre';
       _brian.save();
+
+      children.addChild('Pierre', 'Guillen');
     });
   }
 
@@ -59,10 +76,17 @@ class _BarbarianPageState extends State<BarbarianPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ValueListenableBuilder<Person>(
-              valueListenable: _brian.listen(),
+              valueListenable: _brian.listen(_brian),
               builder: (context, value, _) {
-                print('value $value');
-                return Text('Hi ${value?.name ?? ''}');
+                print('person $value');
+                return Text('Hi ${value?.name}');
+              },
+            ),
+            ValueListenableBuilder(
+              valueListenable: children.listen(),
+              builder: (context, value, _) {
+                print('children $value');
+                return Text('Children ${value?.length ?? 0}');
               },
             ),
           ],

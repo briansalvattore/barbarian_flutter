@@ -1,4 +1,4 @@
-## [0.2.26+7] - 23/05/2020
+## [0.2.26+8] - 26/05/2020
 
 * Add IpaObject and IpaList
 * Add ValueListenable support
