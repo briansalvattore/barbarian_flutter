@@ -120,14 +120,28 @@ class Barbarian {
 
   static void writeObjectWithNotify<T extends Ipa>(String key, T value) {
     Barbarian.write(key, value);
-    _ipaListeners[key]?.value = value;
+
+    if (!_ipaListeners.containsKey(key)) {
+      _ipaListeners[key] = ValueNotifier<T>(value);
+    }//
+    else {
+      _ipaListeners[key]?.value = value;
+    }
+
     // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
     _ipaListeners[key]?.notifyListeners();
   }
 
   static void writeListWithNotify<T extends Ipa>(String key, List<T> value) {
     Barbarian.write(key, value);
-    _ipaListListeners[key]?.value = value;
+
+    if (!_ipaListListeners.containsKey(key)) {
+      _ipaListListeners[key] = ValueNotifier<List<T>>(value);
+    }//
+    else {
+      _ipaListListeners[key]?.value = value;
+    }
+
     // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
     _ipaListListeners[key]?.notifyListeners();
   }

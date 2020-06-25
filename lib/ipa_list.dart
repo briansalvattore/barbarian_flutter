@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 abstract class IpaList<T> extends Lupulus<T> with Ipa {
   void add<T extends Ipa>() {
-    List<T> list = getAll();
+    List<T> list = getAll<T>();
     list.add(this as T);
 
     Barbarian.writeListWithNotify(key, list);
@@ -13,7 +13,7 @@ abstract class IpaList<T> extends Lupulus<T> with Ipa {
   void empty() => Barbarian.delete(key);
 
   void remove<T extends Ipa>() {
-    List<T> list = getAll().where((i) => i.toString() != this.toString()).toList();
+    List<T> list = getAll<T>().where((i) => i.toString() != this.toString()).toList();
 
     Barbarian.writeListWithNotify(key, list);
   }
