@@ -7,7 +7,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.2.26+9"
+    version: "0.2.26+10"
   characters:
     dependency: transitive
     description:
@@ -21,7 +21,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.14.13"
+    version: "1.14.12"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -85,7 +85,7 @@ packages:
       name: typed_data
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.1.6"
   vector_math:
     dependency: transitive
     description:
