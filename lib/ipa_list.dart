@@ -13,7 +13,8 @@ abstract class IpaList<T> extends Lupulus<T> with Ipa {
   void empty() => Barbarian.delete(key);
 
   void remove<T extends Ipa>() {
-    List<T> list = getAll<T>().where((i) => i.toString() != this.toString()).toList();
+    List<T> list =
+        getAll<T>().where((i) => i.toString() != this.toString()).toList();
 
     Barbarian.writeListWithNotify(key, list);
   }

@@ -65,8 +65,8 @@ class Barbarian {
       default:
         try {
           return customDecode(json.decode(value)) ?? defaultValue;
-        }//
-        catch(e) {
+        } //
+        catch (e) {
           return defaultValue;
         }
     }
@@ -104,16 +104,18 @@ class Barbarian {
   static Map<String, ValueNotifier<Ipa>> _ipaListeners = Map();
   static Map<String, ValueNotifier<List<Ipa>>> _ipaListListeners = Map();
 
-  static ValueNotifier<T> listenIpa<T extends Ipa>(String key, [T defaultValue]) {
+  static ValueNotifier<T> listenIpa<T extends Ipa>(String key,
+      [T defaultValue]) {
     if (!_ipaListeners.containsKey(key)) {
       _ipaListeners[key] = ValueNotifier<T>(defaultValue);
     }
     return _ipaListeners[key];
   }
 
-  static ValueNotifier<List<T>> listenIpaList<T extends Ipa>(String key, [List<T> defaultValue]) {
+  static ValueNotifier<List<T>> listenIpaList<T extends Ipa>(String key,
+      [List<T> defaultValue]) {
     if (!_ipaListListeners.containsKey(key)) {
-    _ipaListListeners[key] = ValueNotifier<List<T>>(defaultValue);
+      _ipaListListeners[key] = ValueNotifier<List<T>>(defaultValue);
     }
     return _ipaListListeners[key];
   }
@@ -123,7 +125,7 @@ class Barbarian {
 
     if (!_ipaListeners.containsKey(key)) {
       _ipaListeners[key] = ValueNotifier<T>(value);
-    }//
+    } //
     else {
       _ipaListeners[key]?.value = value;
     }
@@ -137,7 +139,7 @@ class Barbarian {
 
     if (!_ipaListListeners.containsKey(key)) {
       _ipaListListeners[key] = ValueNotifier<List<T>>(value);
-    }//
+    } //
     else {
       _ipaListListeners[key]?.value = value;
     }
